@@ -1,0 +1,12 @@
+{
+  "Author": "Franz",
+  "Name": "DiscordBridge",
+  "Description": "Port of the Dalamud BotManager over to plugin",
+  "InternalName": "DiscordBridge",
+  "AssemblyVersion": "0.0.0.1",
+  "RepoUrl": "",
+  "ApplicableVersion": "any",
+  "DalamudApplicableVersion": ">=4.9.8.3",
+  "DalamudApiLevel": "1",
+  "Tags": []
+}
