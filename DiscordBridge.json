@@ -1,7 +1,7 @@
 {
   "Author": "Franz",
   "Name": "DiscordBridge",
-  "Description": "Port of the Dalamud BotManager over to plugin",
+  "Description": "Port of the Dalamud BotManager over to a plugin. One-way game to Discord Chat. Use /prelay to bring up settings",
   "InternalName": "DiscordBridge",
   "AssemblyVersion": "0.0.0.1",
   "RepoUrl": "",

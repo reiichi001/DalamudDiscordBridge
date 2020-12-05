@@ -11,7 +11,7 @@ namespace DiscordBridge
         private Configuration config;
         private PluginUI ui;
         private DiscordBridge.BotManager.DiscordBotManager bot;
-        public string Name => "Discord Bridge";
+        public string Name => "Discord Relay";
 
         public void Initialize(DalamudPluginInterface pluginInterface)
         {
@@ -33,8 +33,8 @@ namespace DiscordBridge
             
         }
 
-        [Command("/pdiscord")]
-        [HelpMessage("Open the Discord bot settings.")]
+        [Command("/prelay")]
+        [HelpMessage("Open Franz's Discord bot settings.")]
         public void DiscordSettingsCommand(string command, string args)
         {
             // You may want to assign these references to private variables for convenience.

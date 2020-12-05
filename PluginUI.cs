@@ -400,7 +400,7 @@ namespace DiscordBridge
                 if (ImGui.Combo("##XivChatTypeSelector", ref currentListIndex, list, list.Length))
                 {
                     selectedChannelConfig.ChatType = XivChatTypeExtensions.GetByFancyName(list[currentListIndex]);
-                    PluginLog.Information($"Set ChatType to {selectedChannelConfig.ChatType}");
+                    // PluginLog.Information($"Set ChatType to {selectedChannelConfig.ChatType}");
                 }
                 
 
@@ -410,16 +410,22 @@ namespace DiscordBridge
                 if (ImGui.Combo("##XivChannelTypeSelector", ref channelTypeSelection, channel_types, 2))
                 {
                     selectedChannelConfig.Channel.Type = (Configuration.ChannelType)channelTypeSelection;
-                    PluginLog.Information($"Set ChannelType to {selectedChannelConfig.Channel.Type}");
+                    // PluginLog.Information($"Set ChannelType to {selectedChannelConfig.Channel.Type}");
                 }
 
                 ImGui.Text($"Server ID");
                 string serverIDInput = selectedChannelConfig.Channel.GuildId.ToString();
-                ImGui.InputTextWithHint($"##ServerID", $"Put your Server ID here", ref serverIDInput, 30);
+                if (ImGui.InputTextWithHint($"##ServerID", $"Put your Server ID here", ref serverIDInput, 30))
+                {
+                    selectedChannelConfig.Channel.GuildId = ulong.Parse(serverIDInput);
+                }
 
                 ImGui.Text($"Channel ID");
                 string channelIDInput = selectedChannelConfig.Channel.ChannelId.ToString();
-                ImGui.InputTextWithHint($"##ChannelID", $"Put your Server ID here", ref channelIDInput, 30);
+                if (ImGui.InputTextWithHint($"##ChannelID", $"Put your Server ID here", ref channelIDInput, 30))
+                {
+                    selectedChannelConfig.Channel.ChannelId = ulong.Parse(channelIDInput);
+                }
 
                 ImGui.Spacing();
                 // ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X * 0.4f);
