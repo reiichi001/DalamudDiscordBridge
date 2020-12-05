@@ -47,7 +47,7 @@ namespace DiscordBridge
             public XivChatType ChatType { get; set; }
 
             public ChannelConfiguration Channel { get; set; }
-            public int Color { get; set; }
+            public uint Color { get; set; }
         }
 
         public void Initialize(DalamudPluginInterface pluginInterface)

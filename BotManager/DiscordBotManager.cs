@@ -125,6 +125,10 @@ namespace DiscordBridge.BotManager
                 type = XivChatType.TellIncoming;
                 wasOutgoingTell = true;
             }
+            else if (type == XivChatType.Echo)
+            {
+                wasOutgoingTell = true;
+            }
 
             var chatTypeConfigs =
                 this.config.ChatTypeConfigurations.Where(typeConfig => typeConfig.ChatType == type);
@@ -138,8 +142,10 @@ namespace DiscordBridge.BotManager
 
             var playerLink = sender.Payloads.FirstOrDefault(x => x.Type == PayloadType.Player) as PlayerPayload;
 
-            string senderName;
-            string senderWorld;
+            string senderName = string.Empty;
+            string senderWorld = string.Empty;
+
+            // PluginLog.Information($"Sender: {sender}");
 
             if (this.pi.ClientState.LocalPlayer != null)
             {
@@ -156,9 +162,12 @@ namespace DiscordBridge.BotManager
                     }
                     else
                     {
-                        PluginLog.Error("playerLink was null. Sender: {0}", BitConverter.ToString(sender.Encode()));
+                        PluginLog.Error($"playerLink was null. Sender: {BitConverter.ToString(sender.Encode())} Type: {type}");
 
+                        //if (wasOutgoingTell)
                         senderName = wasOutgoingTell ? this.pi.ClientState.LocalPlayer.Name : sender.TextValue;
+                        //else if (wasEcho)
+                        //    senderName = wasEcho ? this.pi.ClientState.LocalPlayer.Name : sender.TextValue;
                     }
 
                     senderWorld = this.pi.ClientState.LocalPlayer.HomeWorld.GameData.Name;
@@ -172,8 +181,10 @@ namespace DiscordBridge.BotManager
             else
             {
                 senderName = string.Empty;
-                senderWorld = string.Empty;
+                senderWorld =  string.Empty;
             }
+
+           
 
             var rawMessage = message.TextValue;
             /*
@@ -357,14 +368,14 @@ namespace DiscordBridge.BotManager
 
                             EmbedBuilder eb = themessage.rawMessage;
 
-                            PluginLog.Information($"Sender Name: {senderName} - {senderWorld}");
+                            // PluginLog.Information($"Sender Name: {senderName} - {senderWorld}");
 
                             if (string.IsNullOrEmpty(senderName) || string.IsNullOrEmpty(senderWorld))
                             {
                                 string[] temp = eb.Author.Name.Split(" on ".ToCharArray());
                                 senderName = temp[0];
                                 senderWorld = temp[1];
-                                PluginLog.Information("Had to dissect senderName and sendWorld from the name. Disgusting.");
+                                // PluginLog.Information("Had to dissect senderName and sendWorld from the name. Disgusting.");
                             }
 
                             var searchResult = await GetCharacterInfo(senderName, senderWorld);
@@ -372,7 +383,7 @@ namespace DiscordBridge.BotManager
                             var lodestoneId = searchResult.LodestoneId;
                             var avatarUrl = searchResult.AvatarUrl;
 
-                            PluginLog.Information($"Sender Name: {senderName} - {lodestoneId}");
+                            // PluginLog.Information($"Sender Name: {senderName} - {lodestoneId}");
 
                             eb.Author.IconUrl = avatarUrl;
                             eb.Author.Url = !string.IsNullOrEmpty(lodestoneId) ? "https://na.finalfantasyxiv.com/lodestone/character/" + lodestoneId : null;
